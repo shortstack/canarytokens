@@ -72,13 +72,17 @@ class CanarytokenPage(resource.Resource, InputChannel):
                     #return template.render(key=canarydrop._drop['hit_time'],
                     #                       canarytoken=token.value()).encode('utf8')
                 elif canarydrop._drop['type'] == 'slow_redirect':
-                    return # browser scanner
+                    template = env.get_template('browser_scanner.html')
+                    return template.render(key=canarydrop._drop['hit_time'],
+                                           canarytoken=token.value(),
+                                           redirect_url=canarydrop._drop['redirect_url']).encode('utf8')
 
             if request.getHeader('Accept') and "text/html" in request.getHeader('Accept'):
                 if canarydrop['browser_scanner_enabled']:
                     template = env.get_template('browser_scanner.html')
                     return template.render(key=canarydrop._drop['hit_time'],
-                                           canarytoken=token.value()).encode('utf8')
+                                           canarytoken=token.value(),
+                                           redirect_url='').encode('utf8')
 
                 elif TOKEN_RETURN == 'fortune':
                     try:
