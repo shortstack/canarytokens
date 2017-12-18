@@ -8,7 +8,7 @@ from twisted.web import server, resource
 from twisted.application import internet
 from twisted.web.server import Site, GzipEncoderFactory
 from twisted.web.resource import Resource, EncodingResourceWrapper, ForbiddenResource
-from twisted.web.util import Redirect
+from twisted.web.util import Redirect, redirectTo
 from twisted.python import log
 from jinja2 import Environment, FileSystemLoader
 import subprocess
@@ -61,6 +61,18 @@ class CanarytokenPage(resource.Resource, InputChannel):
             self.dispatch(canarydrop=canarydrop, src_ip=src_ip,
                           useragent=useragent, location=location,
                           referer=referer)
+            
+            print dir(canarydrop)
+            print vars(canarydrop)
+            if 'redirect_url' in canarydrop._drop and canarydrop._drop['redirect_url']:
+                # if fast redirect
+                if canarydrop._drop['type'] == 'fast_redirect':
+                    return redirectTo(canarydrop._drop['redirect_url'], request)
+                    #template = env.get_template('browser_scanner.html')
+                    #return template.render(key=canarydrop._drop['hit_time'],
+                    #                       canarytoken=token.value()).encode('utf8')
+                elif canarydrop._drop['type'] == 'slow_redirect':
+                    return # browser scanner
 
             if request.getHeader('Accept') and "text/html" in request.getHeader('Accept'):
                 if canarydrop['browser_scanner_enabled']:
