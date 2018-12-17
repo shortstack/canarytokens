@@ -45,7 +45,7 @@ class InputChannel(Channel):
         payload['channel'] = self.name
         payload['time'] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         payload['memo'] = canarydrop.memo
-        payload['manage_url'] = 'http://{host}/manage?token={token}&auth={auth}'\
+        payload['manage_url'] = 'https://{host}/manage?token={token}&auth={auth}'\
                                 .format(host=host,
                                         token=canarydrop['canarytoken'],
                                         auth=canarydrop['auth'])
@@ -59,7 +59,7 @@ class InputChannel(Channel):
         fields = []
         if not host or host == '':
             host=settings.PUBLIC_IP
-        manage_link = 'http://{host}/manage?token={token}&auth={auth}'\
+        manage_link = 'https://{host}/manage?token={token}&auth={auth}'\
                       .format(host=host,
                               token=canarydrop['canarytoken'],
                               auth= canarydrop['auth'])
@@ -119,7 +119,7 @@ Time   : {time}
 Memo   : {memo}
 {additional_data}
 Manage your settings for this Canarydrop:
-http://{host}/manage?token={token}&auth={auth}""".format(
+https://{host}/manage?token={token}&auth={auth}""".format(
                     channel_name=self.name,
                     time=msg['time'],
                     memo=canarydrop.memo,
@@ -129,11 +129,11 @@ http://{host}/manage?token={token}&auth={auth}""".format(
                     token=canarydrop['canarytoken'],
                     auth=canarydrop['auth']
                     )
-            msg['manage'] = 'http://{host}/manage?token={token}&auth={auth}'\
+            msg['manage'] = 'https://{host}/manage?token={token}&auth={auth}'\
                 .format(host=host,
                         token=canarydrop['canarytoken'],
                         auth=canarydrop['auth'])
-            msg['history'] = 'http://{host}/history?token={token}&auth={auth}'\
+            msg['history'] = 'https://{host}/history?token={token}&auth={auth}'\
                 .format(host=host,
                         token=canarydrop['canarytoken'],
                         auth=canarydrop['auth'])

@@ -169,12 +169,12 @@ class Canarydrop(object):
             if 'generated_nx_hostname' not in self._drop:
                 self._drop['generated_nx_hostname'] = \
                     self.generate_random_hostname(with_random=with_random, nxdomain=True)
-            return ('http://' if as_url else '')+self._drop['generated_nx_hostname']
+            return ('https://' if as_url else '')+self._drop['generated_nx_hostname']
         else:
             if 'generated_hostname' not in self._drop:
                 self._drop['generated_hostname'] = \
                     self.generate_random_hostname(with_random=with_random, nxdomain=False)
-            return ('http://' if as_url else '')+self._drop['generated_hostname']
+            return ('https://' if as_url else '')+self._drop['generated_hostname']
 
     def get_requested_output_channels(self,):
         """Return a list containing the output channels configured in this

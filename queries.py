@@ -24,7 +24,7 @@ def get_canarydrop(canarytoken=None):
     return canarydrop
 
 def get_all_canary_sites():
-    return ['http://'+x for x in get_all_canary_domains()]
+    return ['https://'+x for x in get_all_canary_domains()]
 
 def get_all_canary_path_elements():
     return list(db.smembers(KEY_CANARY_PATH_ELEMENTS))
